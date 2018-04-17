@@ -16,8 +16,10 @@
 `50464835` ("PFH5")
 
 ### bitmask
+```
 0x10000000 file is encrypted
 0x01000000 index has unknown dword
+```
 
 ### pf index len
 ?

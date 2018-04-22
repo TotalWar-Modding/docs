@@ -1,15 +1,32 @@
 # Profile Requests
 
-## URL
-`https://s3-eu-west-1.amazonaws.com/live-caprofile-profiles.twaservers.com/public/{PLAYER_ID}.json`
+## Player ID
 
-## Method
+### URL
+`https://s3-eu-west-1.amazonaws.com/live-usermap.twaservers.com/wgid/WG_PLAYER_ID`
+
+### METHOD
 `GET`
 
-## Sample request
+### Sample request
+`https://s3-eu-west-1.amazonaws.com/live-usermap.twaservers.com/wgid/549802864`
+
+### Sample response
+
+`a0fab935-613e-51f5-a9b5-d0b6940a144c`
+
+## Player Profile
+
+### URL
+`https://s3-eu-west-1.amazonaws.com/live-caprofile-profiles.twaservers.com/public/{PLAYER_ID}.json`
+
+### Method
+`GET`
+
+### Sample request
 `https://s3-eu-west-1.amazonaws.com/live-caprofile-profiles.twaservers.com/public/44c9db4b-8428-5013-95f1-c9d6a0630b27.json`
 
-## Sample response
+### Sample response
 
 ```json
 {

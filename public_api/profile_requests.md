@@ -3,7 +3,7 @@
 ## Player ID
 
 ### URL
-`https://s3-eu-west-1.amazonaws.com/live-usermap.twaservers.com/wgid/WG_PLAYER_ID`
+`https://s3-eu-west-1.amazonaws.com/live-usermap.twaservers.com/wgid/{WG_PLAYER_ID}`
 
 ### METHOD
 `GET`

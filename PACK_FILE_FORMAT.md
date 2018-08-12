@@ -17,8 +17,9 @@
 
 ### bitmask
 ```
-0x10000000 file is encrypted
-0x01000000 index has unknown dword
+1000 0000 file is encrypted
+0100 0000 index has unknown dword
+0001 0000 file is padded (items begin at the next multiple of 8)
 ```
 
 ### pf index len

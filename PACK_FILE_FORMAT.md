@@ -1,56 +1,75 @@
 # The TWA PFH5 Pack File Format
 
+This document describes what we know about the PackFile format used by Total War Games. Each PackFile is divided in three parts: header, indexes and data (and signature if the PackFile is encrypted).
+
+## Header
+
 ```
           |  00  01  02  03  |  04  05  06  07  |  08  09  0A  0B  |  0C  0D  0E 0F  |
-00000000  |  preamble        |  bitmask         |  pf index len    |  pf index size  |
-00000010  |  file index len  |  file index size |  timestamp       |  unknown        |
-00000020  |  unknown         |  unknown         |  signature pos   |  unknown        |
-00000030  |  index                                                                   |
-[...]
-00000XXX  | payload                                                                  |
-[...]
-00000YYY  | signature                                                                |
+00000000  |  Preamble        |  Type + Bitmask  |  PF Index Count  |  PF Index Size  |
+00000010  |  File Index Cou. |  File Index Size |  Timestamp       |  Unknown        |
+00000020  |  Unknown         |  Unknown         |  Signature Pos.  |  Unknown        |
 ```
 
-### preamble
+### Preamble
 `50464835` ("PFH5")
 
-### bitmask
+### Type + Bitmask
+Type of the PackFile, being:
+
+* 0 -> Boot.
+* 1 -> Release.
+* 2 -> Patch.
+* 3 -> Mod.
+* 4 -> Movie.
+
+Here is usually included a bitmask, being:
 ```
-1000 0000 file is encrypted
-0100 0000 index has unknown dword
-0001 0000 file is padded (items begin at the next multiple of 8)
+0001 0000 0000 -> Unknown, only seen on Arena.
+0000 1000 0000 -> File Index is encrypted.
+0000 0100 0000 -> File Index contains a timestamp of every file after his size, in the same format as the one in the header.
+0000 0001 0000 -> file is padded (items begin at the next multiple of 8).
 ```
 
-### pf index len
-?
+### PF Index Count
+Amount of entries in the PackFile Index.
 
-### pd index size
-?
+### PF Index Size
+Size in bytes of the PackFile Index.
 
-### file index len
-The amount of entries in the index
+### File Index Count
+Amount of entries in the File Index (amount of files in the PackFile).
 
-### file index size
-The size of the index.
+### File Index Size
+S##ize in bytes of the File Index.
 
-### timestamp
-The time of creation (?).
+### Timestamp
+The time of creation of the PackFile (probably).
 
-### signature pos
+### Signature Position (if encrypted).
 The position of the 256-byte signature.
 
-### index
-The index is the concatenation of all index items.
+## Indexes
 
-### index item
-An index item consists of 4 bytes file length, optional 4 bytes unknown if the flag is set, and a 0-terminated ascii string.
+### PackFile Index
+The PackFile Index is a list of PackFiles, each one ended in 00. Not seen used in Arena.
 
-### payload
+### File Index
+The File index is a list containing the size, timestamp (if the correct bitmask is set in the header) and path of each file inside the PackFile. Every entry is set like this:
+```
+          |  00  01  02  03  |  04  05  06  07  |  08  09  0A  0B  |  0C  0D  0E 0F  |
+0000XXXX  |  Data Size       |  Timestamp       |  File Path, ended in 00            |
+```
+* Data Size is the size in bytes of the data of the File.
+* Timestamp is a creation/modification date, not sure. Only present when the right bitmask is set in the header.
+* File Path, is a path like this: ```db/kv_tables/table```
 
-The concatenated content.
+The File Index may be encrypted, depending on the bitmask used in the header.
 
-### signature
+## Data
+The data of every file inside the PackFile, in the same order the files are in the File Index.
+
+## Signature (only in encrypted PackFiles)
 
 You can validate the integrity of the file with TCA's public key:
 ```
@@ -64,3 +83,4 @@ z1y+IJ16eD3bV985AB16vOIHsYzbWy+KG4YeRaWOCuudekpH6+4AC506momN4vtc
 EwIDAQAB
 -----END PUBLIC KEY-----
 ```
+

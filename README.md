@@ -1,9 +1,9 @@
-# TWA Modding Docs
+# Total War Modding Docs
 
-## Unpacking TWA's .pack files
+## Unpacking .pack files
 
-[twa_unpack](https://github.com/TotalWarArena-Modding/twa_unpack) can unpack every .pack file of TWA.
+[twa_unpack](https://github.com/TotalWar-Modding/twa_unpack) and [rpfm](https://github.com/Frodo45127/rpfm) can unpack almost every .pack file. If you encounter a .pack file that cannot be opened, please open an issue!
 
-## Decompiling TWA's .luac files
+## Decompiling .luac files
 
-[unluac](https://sourceforge.net/projects/unluac/) can decompile every .luac file of TWA.
+[unluac](https://sourceforge.net/projects/unluac/) should be able to decompile every .luac file of any total war game.

@@ -25,10 +25,10 @@ Type of the PackFile, being:
 
 Here is usually included a bitmask, being:
 ```
-0001 0000 0000 -> Unknown, only seen on Arena.
-0000 1000 0000 -> File Index is encrypted.
-0000 0100 0000 -> File Index contains a timestamp of every file after his size, in the same format as the one in the header.
-0000 0001 0000 -> file is padded (items begin at the next multiple of 8).
+0001 0000 0000 HAS_BIG_HEADER                     -> Header has 20 extra bytes (TW: Arena).
+0000 1000 0000 HAS_ENCRYPTED_INDEX                -> File index is encrypted.
+0000 0100 0000 HAS_INDEX_WITH_TIMESTAMPS          -> File index entries have a timestamp after the size.
+0000 0001 0000 HAS_ENCRYPTED_CONTENT              -> Files are padded to multiples of 8.
 ```
 
 ### PF Index Count
